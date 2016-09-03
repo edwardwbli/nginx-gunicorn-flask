@@ -17,6 +17,8 @@ RUN pip install -r /deploy/app/requirements.txt
 RUN rm /etc/nginx/sites-enabled/default
 COPY flask.conf /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available/flask.conf /etc/nginx/sites-enabled/flask.conf
+# overide worker_processes count 
+RUN sed -i '2s/.*/worker_processes 1;/' /etc/nginx/nginx.conf 	
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Setup supervisord
